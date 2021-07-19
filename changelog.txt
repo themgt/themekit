@@ -1,7 +1,21 @@
-v1.1.5
-======
+v1.3.0 (Jun 23, 2021)
+=====================
+- Add messaging for Theme Kit access https://github.com/Shopify/themekit/pull/939
+
+v1.2.0 (May 27, 2021)
+=====================
+- Add support for Theme Kit access https://github.com/Shopify/themekit/pull/933
+
+v1.1.6 (Feb 3, 2021)
+=====================
+- Allow theme get and theme new to use env vars https://github.com/Shopify/themekit/pull/891
+- Fixed errors from directory changes in theme watch https://github.com/Shopify/themekit/pull/889
+
+v1.1.5 (Jan 21, 2021)
+=====================
 - Fix layout after renaming application.scss.css to application.css
 - Added more to customer templates
+- Optimization for watcher to reduce CPU usage.
 
 v1.1.4 (Dec 3, 2020)
 ====================

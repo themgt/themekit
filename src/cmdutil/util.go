@@ -30,33 +30,34 @@ var (
 // Flags encapsulates all the possible flags that can be set in the themekit
 // command line. Some of the values are used across different commands
 type Flags struct {
-	ConfigPath            string
-	VariableFilePath      string
-	Environments          []string
-	Directory             string
-	Password              string
-	ThemeID               string
-	Domain                string
-	Proxy                 string
-	Timeout               time.Duration
-	Verbose               bool
-	DisableUpdateNotifier bool
-	IgnoredFiles          []string
-	Ignores               []string
-	DisableIgnore         bool
-	Notify                string
-	AllEnvs               bool
-	Version               string
-	Prefix                string
-	URL                   string
-	Name                  string
-	Edit                  bool
-	With                  string
-	List                  bool
-	NoDelete              bool
-	AllowLive             bool
-	Live                  bool
-	HidePreviewBar        bool
+	ConfigPath                    string
+	VariableFilePath              string
+	Environments                  []string
+	Directory                     string
+	Password                      string
+	ThemeID                       string
+	Domain                        string
+	Proxy                         string
+	Timeout                       time.Duration
+	Verbose                       bool
+	DisableUpdateNotifier         bool
+	IgnoredFiles                  []string
+	Ignores                       []string
+	DisableIgnore                 bool
+	Notify                        string
+	AllEnvs                       bool
+	Version                       string
+	Prefix                        string
+	URL                           string
+	Name                          string
+	Edit                          bool
+	With                          string
+	List                          bool
+	NoDelete                      bool
+	AllowLive                     bool
+	Live                          bool
+	HidePreviewBar                bool
+	DisableThemeKitAccessNotifier bool
 }
 
 // Ctx is a specific context that a command will run in
@@ -340,6 +341,11 @@ func ForDefaultClient(flags Flags, args []string, handler func(*Ctx) error) erro
 
 func forDefaultClient(newClient clientFact, flags Flags, args []string, handler func(*Ctx) error) error {
 	progressBarGroup := mpb.New(nil)
+
+	if err := env.SourceVariables(flags.VariableFilePath); err != nil {
+		return err
+	}
+
 	config, err := env.Load(flags.ConfigPath)
 	if err != nil && os.IsNotExist(err) {
 		config = env.New(flags.ConfigPath)
